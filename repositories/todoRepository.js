@@ -18,7 +18,7 @@ exports.update = async (todo) => {
             id: todo.id
         }
     }
-    return await await model.todo.update(todo, condition)
+    return await model.todo.update(todo, condition)
 }
 
 exports.delete = async (id) => {
