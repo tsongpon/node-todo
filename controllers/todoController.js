@@ -1,9 +1,9 @@
-const model = require('../models/index')
+const todoRepository = require('../repositories/todoRepository')
 
 exports.listAll = async (req, res, next) => {
     console.log('Listing all todos')
     try {
-        let todos = await model.todo.findAll({})
+        let todos = await todoRepository.listAll()
         res.status(200).json(todos)
     } catch (e) {
         console.error('There is error while listing todos', e)
@@ -14,11 +14,11 @@ exports.listAll = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     console.log('Creating new todo')
     try {
-        let todo = {
+        const todo = {
             title: req.body.title,
             description: req.body.description
         }
-        let created = await model.todo.create(todo)
+        let created = await todoRepository.create(todo)
         res.status(201).json(created)
     } catch (e) {
         next(e)
@@ -29,7 +29,7 @@ exports.findById = async (req, res, next) => {
     let id = req.params.id
     try {
         console.log('Getting todo by id: ', id)
-        let todo = await model.todo.findById(id)
+        let todo = await todoRepository.findById(id)
         if (todo) {
             res.status(200).json(todo)
         } else {
@@ -44,17 +44,12 @@ exports.update = async (req, res, next) => {
     let todoId = req.params.id
     console.log('Updating todo id: ', todoId)
     try {
-        const todo = { title: req.body.title, description: req.body.description }
-        const condition = {
-            where: {
-                id: todoId
-            }
-        }
-        const toUpdate = await model.todo.findById(todoId)
-        if (!toUpdate) {
+        const todo = { title: req.body.title, description: req.body.description, id: req.body.id }
+        const fromDb = await todoRepository.findById(todoId)
+        if (!fromDb) {
             res.status(404).send()
         }
-        const updated = await model.todo.update(todo, condition)
+        const updated = await todoRepository.update(todo)
         if (updated > 0) {
             res.status(200).send()
         } else {
@@ -67,14 +62,9 @@ exports.update = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
     let todoId = req.params.id
-    const condition = {
-        where: {
-            id: todoId
-        }
-    }
     console.log('Deleting todo id: ', todoId)
     try {
-        const deleted = await model.todo.destroy(condition)
+        const deleted = await todoRepository.delete(todoId)
         if (deleted > 0) {
             res.status(200).send()
         } else {
