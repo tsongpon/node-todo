@@ -19,6 +19,7 @@ exports.create = async (req, res, next) => {
             description: req.body.description
         }
         let created = await todoRepository.create(todo)
+        res.location('/todos/' + created.id)
         res.status(201).json(created)
     } catch (e) {
         next(e)

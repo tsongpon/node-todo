@@ -21,7 +21,7 @@ exports.update = async (todo) => {
     return await model.todo.update(todo, condition)
 }
 
-exports.delete = async (id) => {
+exports.delete = async (todoId) => {
     const condition = {
         where: {
             id: todoId
