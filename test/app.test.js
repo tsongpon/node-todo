@@ -39,7 +39,7 @@ describe('Todo', () => {
     })
 
     describe('/POST todos', () => {
-        it('it should create new book after POST valid request', (done) => {
+        it('it should create new todo after POST valid request', (done) => {
             let todo = {
                 title: "Learn javascript and nodejs",
                 description: "Learn programming javascript and nodejs",
