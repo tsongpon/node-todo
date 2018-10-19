@@ -3,7 +3,8 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var todoRouters = require('./routes/todos');
+var todoRouters = require('./routes/todos')
+var pingRoute = require('./routes/ping')
 
 var app = express();
 
@@ -12,7 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/todos', todoRouters);
+app.use('/ping', pingRoute)
+app.use('/todos', todoRouters)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

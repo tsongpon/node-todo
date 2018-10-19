@@ -7,7 +7,7 @@ router.get('/', controller.listAll)
 // get todo by id
 router.get('/:id', controller.findById)
 
-/* POST todo. */
+// POST todo. 
 router.post('/', controller.create)
  
 /* update todo. */

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "nodemon ./bin/www",
     "test": "rm -rf database.sqlite && NODE_ENV=test sequelize db:migrate && nyc mocha --timeout 10000 && rm -rf database.sqlite"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.2.0",
     "mocha": "^5.2.0",
+    "nodemon": "^1.18.4",
     "nyc": "^13.1.0",
     "sqlite3": "^4.0.2"
   }
