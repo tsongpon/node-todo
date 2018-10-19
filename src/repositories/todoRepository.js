@@ -1,15 +1,15 @@
 const model = require('../models/index')
 
 exports.listAll = async () => {
-    return await model.todo.findAll({})
+    return model.todo.findAll({})
 }
 
 exports.findById = async (id) => {
-    return await model.todo.findById(id)
+    return model.todo.findById(id)
 }
 
 exports.create = async (todo) => {
-    return await model.todo.create(todo)
+    return model.todo.create(todo)
 }
 
 exports.update = async (todo) => {
@@ -18,7 +18,7 @@ exports.update = async (todo) => {
             id: todo.id
         }
     }
-    return await model.todo.update(todo, condition)
+    return model.todo.update(todo, condition)
 }
 
 exports.delete = async (todoId) => {
@@ -27,5 +27,5 @@ exports.delete = async (todoId) => {
             id: todoId
         }
     }
-    return await model.todo.destroy(condition)
+    return model.todo.destroy(condition)
 }
