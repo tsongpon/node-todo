@@ -1,4 +1,5 @@
-const todoRepository = require('../repositories/todoRepository')
+const todoRepository = require('../../repositories/todoRepository')
+const mapper = require('../mappers/mapper')
 
 exports.listAll = async (req, res, next) => {
     console.log('Listing all todos')
@@ -14,11 +15,12 @@ exports.listAll = async (req, res, next) => {
 exports.create = async (req, res, next) => {
     console.log('Creating new todo')
     try {
-        const todo = {
+        const transport = {
             title: req.body.title,
             description: req.body.description
         }
-        let created = await todoRepository.create(todo)
+        let todoModel = mapper.toModel(transport)
+        let created = await todoRepository.create(todoModel)
         res.location('/todos/' + created.id)
         res.status(201).json(created)
     } catch (e) {
@@ -32,7 +34,7 @@ exports.findById = async (req, res, next) => {
         console.log('Getting todo by id: ', id)
         let todo = await todoRepository.findById(id)
         if (todo) {
-            res.status(200).json(todo)
+            res.status(200).json(mapper.toTransport(todo))
         } else {
             res.status(404).send()
         }
