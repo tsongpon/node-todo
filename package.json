@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "sequelize db:migrate && nodemon ./bin/www",
     "test": "rm -rf database.sqlite && NODE_ENV=test sequelize db:migrate && nyc mocha --timeout 10000 && rm -rf database.sqlite"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",

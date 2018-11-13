@@ -3,7 +3,7 @@
     "username": "root",
     "password": "pingu123",
     "database": "todo_development",
-    "host": "127.0.0.1",
+    "host": "todo-database",
     "dialect": "mysql",
     "operatorsAliases": false
   },

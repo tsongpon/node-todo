@@ -1,1 +1,27 @@
-// TODO
+version: '2.1'
+services:
+  todo-database:
+    image: "mysql:5"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=pingu123
+      - MYSQL_DATABASE=todo_development
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=pingu123 --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+  todo-api:
+    build: .
+    depends_on:
+      todo-database:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    links: 
+      - "todo-database:todo-database"
+networks:
+  default:
+    external:
+      name: kong-net
